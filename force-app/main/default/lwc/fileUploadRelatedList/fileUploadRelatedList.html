@@ -19,7 +19,7 @@
     <br />
     <div class="slds-box slds-box_xx-small slds-theme_shade slds-align_absolute-center">
         <!--Data Table to show related files-->
-        <lightning-datatable key-field="id" columns={columns} data={filesToDisplay}
+        <lightning-datatable key-field="id" columns={columns} data={filesToDisplay} hide-checkbox-column
             default-sort-direction={defaultSortDirection} sorted-direction={sortedDirection} sorted-by={sortedBy}
             onsort={onHandleSort}></lightning-datatable>
     </div>
