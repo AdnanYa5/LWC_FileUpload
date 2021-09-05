@@ -81,12 +81,35 @@ export default class FileUploadRelatedList extends LightningElement {
 
 
     onHandleSort(event) {
-        console.log('onHandleSort detail----' + JSON.stringify(event.detail));
-        const {
-            fieldName: sortedBy,
-            sortDirection
-        } = event.detail;
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        try {
+            this.sortData(this.sortedBy, this.sortDirection);
+        } catch (err) {
+            console.log('error while sorting ---' + err);
+        }
+    }
 
+    sortData(fieldName, direction) {
+        let parseData = JSON.parse(JSON.stringify(this.filesToDisplay));
+        let getField = fieldName;
+
+        //Return the value sorted in the field
+        let keyValue = (a) => {
+            return a[getField];
+        };
+        //checking reverse direction
+        let isReverse = direction === 'asc' ? 1 : -1;
+        //sorting data
+        parseData.sort((x, y) => {
+            x = keyValue(x) ? keyValue(x) : ''; //handling null values
+            y = keyValue(y) ? keyValue(y) : '';
+            let a = x.toLowerCase();
+            let b = y.toLowerCase();
+
+            return isReverse * ((a > b) - (b > a));
+        });
+        this.filesToDisplay = parseData;
     }
 
     refreshList() {
