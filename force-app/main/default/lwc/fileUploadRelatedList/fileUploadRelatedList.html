@@ -3,9 +3,24 @@
         <!--File upload child component-->
         <c-file-upload my-record-id={recordId} onnewfileupload={refreshList}></c-file-upload>
     </div>
+    <br />
+    <div class="slds-box slds-theme_shade">
+        <lightning-layout horizontal-align="space">
+            <lightning-layout-item padding="around-small">
+                <lightning-input type="search" label="File Name" value={searchFileName} onchange={handleFileNameSearch}>
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-input type="search" label="Contains" value={searchContains} onchange={handleContainsSearch}>
+                </lightning-input>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+    <br />
     <div class="slds-box slds-box_xx-small slds-theme_shade slds-align_absolute-center">
         <!--Data Table to show related files-->
-        <lightning-datatable key-field="id" columns={columns} data={data} default-sort-direction={defaultSortDirection}
-            sorted-direction={sortedDirection} sorted-by={sortedBy} onsort={onHandleSort}></lightning-datatable>
+        <lightning-datatable key-field="id" columns={columns} data={filesToDisplay}
+            default-sort-direction={defaultSortDirection} sorted-direction={sortedDirection} sorted-by={sortedBy}
+            onsort={onHandleSort}></lightning-datatable>
     </div>
 </template>

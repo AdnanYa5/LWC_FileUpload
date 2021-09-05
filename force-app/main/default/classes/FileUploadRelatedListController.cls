@@ -45,4 +45,42 @@ public with sharing class FileUploadRelatedListController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled
+    public static List<String> searchFilesContent(List<String> searchArray, List<Id> validDocIdList){
+        try {
+            String searchString = '';
+            Boolean keyWordSearch = false;
+            for(String key: searchArray){
+                key = String.escapeSingleQuotes(key);
+                if(searchString.length() == 0){
+                    searchString = key;
+                } else {
+                    keyWordSearch = true;
+                    searchString += ' AND '+'"'+key+'"';
+                }
+            }
+
+            if(!keyWordSearch){
+                searchString = '\''+searchString+'*'+'\'';
+            } else {
+                searchString = '{'+searchString+'}';
+            }
+
+            String searchQuery = 'FIND '+searchString+ ' IN All FIELDS RETURNING ContentDocument(Id where Id in: validDocIdList)';
+            List<List<SObject>> searchList = search.query(searchQuery);
+            List<String> returnValidDocList = new List<String>();
+            for(List<SObject> sl : searchList){
+                List<ContentDocument> cdList = new List<ContentDocument>();
+                cdList = (List<ContentDocument>)sl;
+                for(ContentDocument cd : cdList){
+                    returnValidDocList.add(cd.Id);
+                }
+            }
+            return returnValidDocList;
+
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }
