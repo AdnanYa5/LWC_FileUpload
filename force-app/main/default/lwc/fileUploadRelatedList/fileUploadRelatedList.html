@@ -1,0 +1,11 @@
+<template>
+    <div class="slds-box slds-box_xx-small slds-theme_shade slds-align_absolute-center">
+        <!--File upload child component-->
+        <c-file-upload my-record-id={recordId} onnewfileupload={refreshList}></c-file-upload>
+    </div>
+    <div class="slds-box slds-box_xx-small slds-theme_shade slds-align_absolute-center">
+        <!--Data Table to show related files-->
+        <lightning-datatable key-field="id" columns={columns} data={data} default-sort-direction={defaultSortDirection}
+            sorted-direction={sortedDirection} sorted-by={sortedBy} onsort={onHandleSort}></lightning-datatable>
+    </div>
+</template>
