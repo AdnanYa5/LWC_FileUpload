@@ -9,3 +9,5 @@ Imp Notes----
 1. Create platformShowToastEvent.js as it is in repo, It is present in force-app>tests>jest-mocks>lightning>platformShowToastEvent.js
 2. Update the jest.config.js file moduleNameMapper with correct lightning/platformShowToastEvent$ or copy as it is
 3. Run the tests for toast functionality
+
+Added mock for messageService just like platformShowToastEvent
