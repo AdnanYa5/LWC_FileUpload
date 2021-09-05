@@ -11,3 +11,13 @@ Imp Notes----
 3. Run the tests for toast functionality
 
 Added mock for messageService just like platformShowToastEvent
+
+/***************************Jest test Logic for onKeyUp event ***********************/
+In the test method on fetching the inputElement where from where the keyboard event is triggered, refer to below code.
+/*************
+const event = new KeyBoardEvent('keyUp', { keyCode: 13});
+inputElement.dispatchEvent(event);
+return new Promise(setImmediate).then(()=>{
+    //Your logic...
+})
+*****************/
